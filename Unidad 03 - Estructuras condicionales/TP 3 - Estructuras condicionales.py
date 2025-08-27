@@ -81,10 +81,10 @@ elif media==mediana==moda:
 
 frase=input("Escriba una frase o palabra: ").lower()
 ult=frase[-1]
-if ult==a or ult==e or ult==i or ult==o or ult==u:
+if ult=='a' or ult=='e' or ult=='i' or ult=='o' or ult=='u':
   print(f"{frase}!")
 else:
-  print frase
+  print (frase)
 
 
 #8) Escribir un programa que solicite al usuario que ingrese su nombre y el número 1, 2 o 3 dependiendo de la opción que desee:
@@ -133,5 +133,81 @@ elif 7<=magn:
 
 hemis=input("Ingrese S si se encuentra en el hemisferio sur y N si se encuentra en el hemisferio norte: ").lower()
 fecha=input("Ingrese la fecha en el siguiente formato dd/mm/aaaa : ")
-dia=fecha[0:1]
-mes=fecha[3:4]
+
+#Separamos los dias y los meses del formato y ademas los transformamos en enteros
+dia=int(fecha[0:2])
+mes=int(fecha[3:5])
+
+#Primero trabajamos con los meses menos conflictivos, por ejemplo, a enero solos le corresponde la estación invierno o verano, dependiendo del hemisferio
+# pero a diciembre, que es un mes conflictivo, le pueden corresponder las 4 estaciones, dependiendo de los hemisferios.
+if mes==1 or mes==2:
+  if hemis=='n':
+    print('Su estación es invierno')
+  else:
+    print('Su estación es verano')
+elif mes==4 or mes==5:
+  if hemis=='n':
+    print('Su estación es primavera')
+  else:
+    print('Su estación es otoño')
+elif mes==7 or mes==8:
+  if hemis=='n':
+    print('Su estación es verano')
+  else:
+    print('Su estación es invierno')
+elif mes==10 or mes==11:
+  if hemis=='n':
+    print('Su estación es otoño')
+  else:
+    print('Su estación es primavera')
+elif 1>mes or mes>12 or 0>dia or dia>31:
+  print ('Fecha invalida')
+  
+#Ahora comenzamos con los meses conflictivos.
+#En sisntesis, esta fracción de codigo selecciona el mes conflictivo y primero le pregunta si esta entre los dias del 1 al 20
+# y luego si se encuentra en el hemisferio sur o norte, para asignarle la estación correspondiente. Esto lo hace con cada mes conflictivo.
+if mes==12:
+  if 1<=dia<21:
+    if hemis=='n':
+      print('Su estación es otoño')
+    else:
+      print('Su estación es primavera')
+  elif 21<=dia<=31:
+    if hemis=='n':
+      print('Su estación es invierno')
+    else:
+      print('Su estación es verano')
+elif mes==3:
+  if 1<=dia<21:
+    if hemis=='n':
+      print('Su estación es invierno')
+    else:
+      print('Su estación es verano')
+  elif 21<=dia<=31:
+    if hemis=='n':
+      print('Su estación es primavera')
+    else:
+      print('Su estación es otoño')
+elif mes==6:
+  if 1<=dia<21:
+    if hemis=='n':
+      print('Su estación es primavera')
+    else:
+      print('Su estación es otoño')
+  elif 21<=dia<=30:
+    if hemis=='n':
+      print('Su estación es verano')
+    else:
+      print('Su estación es invierno')
+elif mes==9:
+  if 1<=dia<21:
+    if hemis=='n':
+      print('Su estación es verano')
+    else:
+      print('Su estación es invierno')
+  elif 21<=dia<=30:
+    if hemis=='n':
+      print('Su estación es otoño')
+    else:
+      print('Su estación es primavera')
+
