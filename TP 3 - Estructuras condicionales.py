@@ -127,3 +127,11 @@ elif 6<=magn<7:
 elif 7<=magn:
   print("Extremo (puede causar graves daños a gran escala)")
   
+
+#10)Escribir un programa que pregunte al usuario en cuál hemisferio se encuentra (N/S), qué mes del año es y qué día es. El programa deberá utilizar esa información para imprimir por pantalla si el usuario se encuentra en otoño, invierno, primavera o verano.
+
+
+hemis=input("Ingrese S si se encuentra en el hemisferio sur y N si se encuentra en el hemisferio norte: ").lower()
+fecha=input("Ingrese la fecha en el siguiente formato dd/mm/aaaa : ")
+dia=fecha[0:1]
+mes=fecha[3:4]
