@@ -19,11 +19,13 @@ for x in range (num1, num2):
 #4) Elabora un programa que permita al usuario ingresar números enteros y los sume en 
 #secuencia. El programa debe detenerse y mostrar el total acumulado cuando el usuario ingrese 
 #un 0.
-num=int(input('Ingrese números enteros para sumarlos. Para finalizar el programa presion la tecla cero: '))
+print('Ingrese números enteros para sumarlos. Para finalizar el programa presion la tecla cero')
 suma=0
-while num!= 0:
-    num=int(input('Ingrese otro número: '))
-    suma=suma+num
+while True:
+    num=int(input('Ingrese un número: '))
+    if num==0:
+        break
+    suma+=num
 print('La suma total es de: ', suma)
 
 #5) Crea un juego en el que el usuario deba adivinar un número aleatorio entre 0 y 9. Al final, el 
@@ -33,7 +35,8 @@ num=random.randint(0,9)
 num1=int(input('Ingrese un número del 0 al 9, para adivinar el número escogido por la maquina: '))
 while num!=num1:
     num1=int(input('Incorrecto, ingrese otro número: '))
-print(f'Excelente! el número correcto es: {num}')
+    contador+=1
+print(f'Excelente! ha adivinado el número en el intento {contador}. El número correcto es: {num}')
 
 #6) Desarrolla un programa que imprima en pantalla todos los números pares comprendidos 
 # entre 0 y 100, en orden decreciente.
@@ -74,7 +77,7 @@ La cantidad de número negativos es: {negativo}''')
 #9) Elabora un programa que permita al usuario ingresar 100 números enteros y luego calcule la 
 #media de esos valores. (Nota: puedes probar el programa con una cantidad menor, pero debe 
 #poder procesar 100 números cambiando solo un valor).
-total=2
+total=100
 suma=0
 for x in range (total):
     num=int(input('Ingrese un número: '))
