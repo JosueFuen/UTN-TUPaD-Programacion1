@@ -77,6 +77,23 @@ for s in impar:
     print(s)
 print(f"Total de impares: {nimpar}")
 
+#4)Dada una lista con valores repetidos:
+#•Crear una nueva lista sin elementos repetidos.
+#•Mostrar el resultado.
+datos=[1,3,5,3,7,1,9,5,3]
+lista=[]
+for x in datos:
+    if x not in lista:
+        lista.append(x)
+    else:
+        continue
+print("Lista original")
+for x in datos:
+    print (x, end=" ")
+print("\nLista sin duplicados")
+for x in lista:
+    print (x, end=" ")
+
 #5) Crear una lista con los nombres de 8 estudiantes presentes en clase. 
 #• Preguntar al usuario si quiere agregar un nuevo estudiante o eliminar uno existente. 
 #• Mostrar la lista final actualizada.
@@ -112,3 +129,42 @@ lista1=lista[-1:]+lista[:-1]
 print("\nLista de numeros rotados hacia la derecha:")
 for num in lista1:
     print(num)
+
+#7) Crear una matriz (lista anidada) de 7x2 con las temperaturas mínimas y máximas de una semana.
+#•Calcular el promedio de las mínimas y el de las máximas.
+#•Mostrar en qué día se registró la mayor amplitud térmica.
+print("Temperaturas minimas y maximas de Villa la Angostura del 26/09 al 02/10")
+suma=0
+suma1=0
+prom_max=0
+prom_min=0
+matriz=[[3,9],[-1,7],[0,5],[1,5],[0,9],[3,13],[5,16]]
+for x in range(len(matriz)):
+    temp_min=matriz[x][0]
+    suma+=temp_min
+    temp_max=matriz[x][1]
+    suma1+=temp_max
+prom_min=round(suma/7,1)
+prom_max=round(suma1/7,1)
+print(f"La temperatura mínima promedio de la semana del 26/09 al 02/10 es: {prom_min} °C")
+print(f"La temperatura máxima promedio de la semana del 26/09 al 02/10 es: {prom_max} °C")
+
+#8)Crear una matriz con las notas de 5 estudiantes en 3 materias.
+#•Mostrar el promedio de cada estudiante.
+#•Mostrar el promedio de cada materia.
+matriz=[[9, 7, 5, 8, 5],[10, 6, 3, 7, 5], [8, 7, 2, 9, 4]]
+for i in range (3):
+    suma=0
+    for x in range(5):
+        nota=matriz[i][x]
+        suma+=nota
+        promedio=suma/5
+    print(f"Promedio de materia {i+1}: {promedio}")
+print("")
+for x in range (5):
+    suma=0
+    for i in range(3):
+        nota=matriz[i][x]
+        suma+=nota
+        promedio=suma/5
+    print(f"Promedio del alumno {x+1}: {promedio}")
