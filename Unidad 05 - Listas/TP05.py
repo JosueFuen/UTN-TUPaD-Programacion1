@@ -76,3 +76,39 @@ print("\nLista de impares: ")
 for s in impar:
     print(s)
 print(f"Total de impares: {nimpar}")
+
+#5) Crear una lista con los nombres de 8 estudiantes presentes en clase. 
+#• Preguntar al usuario si quiere agregar un nuevo estudiante o eliminar uno existente. 
+#• Mostrar la lista final actualizada.
+opcion="a"
+estudiantes=["Juan", "Lorenzo", "Josue", "David", "Fernando", "Raul", "Abigail", "Ines"]
+for x in estudiantes:
+    print (x)
+
+while opcion != "X":
+    opcion=input("\nSi desea agregar otro estudiante ingrese A, si desea quitar uno ingrese E, si desea finalizar ingrese X: ")
+    opcion=opcion.upper()
+    if opcion == "A":
+        estu=input("Ingrese el nombre del estudiante: ")
+        estudiantes.append (estu)
+    elif opcion=="E":
+        if estu in estudiantes:
+            estu=input("Ingrese el nombre del estudiante: ")
+            estudiantes.remove(estu)
+        else:
+            print("El estudiante no se encuentra en la lista.")
+    else:
+        print("Opcion invalida.")
+for x in estudiantes:
+    print (x)
+
+#6)Dada una lista con 7 números, rotar todos los elementos una posición hacia la derecha (el 
+#último pasa a ser el primero). 
+lista=[0,8,9,4,56,7,4]
+print("Lista de numero originales:")
+for num in lista:
+    print (num)
+lista1=lista[-1:]+lista[:-1]
+print("\nLista de numeros rotados hacia la derecha:")
+for num in lista1:
+    print(num)
