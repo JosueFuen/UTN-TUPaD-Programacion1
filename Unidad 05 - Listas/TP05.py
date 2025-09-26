@@ -168,3 +168,70 @@ for x in range (5):
         suma+=nota
         promedio=suma/5
     print(f"Promedio del alumno {x+1}: {promedio}")
+
+#9)Representar un tablero de Ta-Te-Ti como una lista de listas (3x3).
+#•Inicializarlo con guiones "-" representando casillas vacías.
+#•Permitir que dos jugadores ingresen posiciones (fila, columna) para colocar "X" o "O".
+#•Mostrar el tablero después de cada jugada.
+TaTeTi=[["-", "-", "-"],["-", "-", "-"],["-", "-", "-"]]
+ganador=False
+for x in TaTeTi:
+    print(x)
+    
+for i in range (9):
+    colum=int(input("\nJugador 1, indica en que columna deseas marcar: "))
+    fila=int(input("Jugador 1, indica en que fila deseas marcar: "))
+    if 3<colum or colum<1 or 3<fila or fila<1:
+        print("Datos mal ingresados, ha perdido su turno.")
+    else:
+        TaTeTi[fila-1][colum-1]="X"
+        for x in TaTeTi:
+            print(x)
+        opcion=input("Presiona E si ganaste el juego, sino cualquier tecla: ")
+        if opcion=="E":
+            print("Felicidades jugador 1, ha ganando el juego!")
+            ganador=True
+            break
+    colum=int(input("\nJugador 2, indica en que columna deseas marcar: "))
+    fila=int(input("Jugador 2, indica en que fila deseas marcar: "))
+    if 3<colum or colum<1 or 3<fila or fila<1:
+        print("Datos mal ingresados, ha perdido su turno.")
+    else:
+        TaTeTi[fila-1][colum-1]="O"
+        for x in TaTeTi:
+            print(x)
+        opcion=input("Presiona E si ganaste el juego, sino cualquier tecla: ")
+        if opcion=="E":
+            print("Felicidades jugador 2, ha ganando el juego!")
+            ganador=True
+            break
+if ganador == False:
+    print("El juego ha terminado en empate")
+
+#10) Una tienda registra las ventas de 4 productos durante 7 días, en una matriz de 4x7. 
+#• Mostrar el total vendido por cada producto. 
+#• Mostrar el día con mayores ventas totales. 
+#• Indicar cuál fue el producto más vendido en la semana.
+matriz=[[6, 8, 9, 0, 2, 7, 9], 
+        [6, 2, 8, 4, 4, 1, 8], 
+        [2, 6, 1, 5, 5, 2, 9], 
+        [7, 6, 8, 2, 6, 5, 6]]
+prod_mas_vend=0
+guarda_iterador=0
+dia_mas_ventas=0
+for i in range (4):
+    ventas=sum(matriz[i])
+    print(f"Se vendieron {ventas} unidades del producto {i+1}")
+    if prod_mas_vend<ventas:
+        prod_mas_vend=ventas
+        indice_prod=i
+print("\nEl producto más vendido de la semana fue el producto ",indice_prod+1 )
+for x in range (7):
+    ventas_dia=0
+    for i in range(4):
+        ventas=matriz[i][x]
+        ventas_dia+=ventas
+    if dia_mas_ventas<ventas_dia:
+        dia_mas_ventas=ventas_dia
+        indice_dia=x
+print(f"\nEl dia con mayores ventas fue el {indice_dia+1}")
