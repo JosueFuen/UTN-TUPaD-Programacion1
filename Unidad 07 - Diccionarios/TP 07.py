@@ -52,9 +52,36 @@ print(num_telefonos[name])
 #• Un diccionario con la cantidad de veces que aparece cada palabra.
 frase=input('Ingrese una frase: ')
 lista_palabras=frase.split()
+diccionario_palabras={}
 #--------Imprime la lista de palabras sin repetir-------
 palabras_unicas=set(lista_palabras)
 print (palabras_unicas)
 #-------Imprime el diccionario con las palabras que se repiten-------
-
-
+for palabra in lista_palabras:
+    
+    if palabra not in diccionario_palabras:
+        diccionario_palabras[palabra]=1
+    else:
+        diccionario_palabras[palabra]+=1
+print(diccionario_palabras)
+#6) Permití ingresar los nombres de 3 alumnos, y para cada uno una tupla de 3 notas. 
+#Luego, mostrá el promedio de cada alumno. 
+notas=[]
+diccionario={}
+def ingreso_de_notas(name, notas):
+    for x in range(1,4):
+        nota=input(f'Ingrese la nota del parcial {x} de {name}: ')
+        notas.append(nota)
+    return notas
+name=input('Ingrese el nombre del alumno: ')
+ingreso_de_notas(name, notas)
+tupla1=tuple(notas)
+diccionario[name]={tupla1}
+name=input('Ingrese el nombre del alumno: ')
+ingreso_de_notas(name, notas)
+tupla2=tuple(notas)
+diccionario[name]={tupla2}
+name=input('Ingrese el nombre del alumno: ')
+ingreso_de_notas(name, notas)
+tupla3=tuple(notas)
+diccionario[name]={tupla3}
