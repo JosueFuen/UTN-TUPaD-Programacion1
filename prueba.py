@@ -50,62 +50,64 @@ def validacion_digitos():
         return cantidad
 
 def validacion_ejemplares():
+    ejemplares=input('Ingrese la cantidad de ejemplares que desea agregar: ').strip()
+    while True:
+        if not ejemplares.isdigit() or ejemplares =='':
+            ejemplares=input("====== ERROR ======\nDebe ingresa un digito. Intente nuevamente: ").strip()
+            continue
+        ejemplares=int(ejemplares)
+        if ejemplares<0:
+            ejemplares=input("====== ERROR ======\nDebe ingresar un digito mayor o igual a cero. Intente nuevamente: ").strip()
+            continue
+        break
+    return ejemplares 
+def validacion_titulos(titulos_existentes):
+
+    nombre=input(f'Ingrese un titulo para agregarlo a la Biblioteca: ').strip()
+    
+    while True:
+        if nombre.lower() in titulos_existentes:
+            nombre=input("====== ERROR ======\nEl libro ingresado ya existe. Intente con otro: ").strip()
+            continue
+        if nombre=='':
+            nombre=input("====== ERROR ======\nNo ha ingresado ningún título. Intente nuevamente: ").strip()
+            continue
+        break
+    return nombre
+def buscar_titulo(titulos_existentes):
+    titulo=input('Ingrese el titulo deseado: ').strip()
+    while True:
+        if titulo.lower() in titulos_existentes:
+    if titulo 
+    return
+def ingresar_titulos():
     cantidad=validacion_digitos()
-    nuevos_titulos=validacion_libros()
-    nuevos_ejemplares=[]
-    for i in range (cantidad):
-        ejemplares=input(f'Ingrese la cantidad de ejemplares del libro {nuevos_titulos[i]: }').strip()
-        while True:
-            if not ejemplares.isdigit() or ejemplares =='':
-                ejemplares=input("====== ERROR ======\nDebe ingresa un digito. Intente nuevamente: ").strip()
-                continue
-            ejemplares=int(ejemplares)
-            if ejemplares<0:
-                ejemplares=input("====== ERROR ======\nDebe ingresar un digito mayor o igual a cero. Intente nuevamente: ").strip()
-                continue
-            break
-        nuevos_ejemplares.append(ejemplares)
-    return nuevos_ejemplares
-def validacion_libros():
-    cantidad=validacion_digitos()
+
     libros=catalogo()
     titulos_existentes=[]
-
     for libro in libros:
         titulos_existentes.append(libro['titulo'].lower())
 
-    nuevos_titulos=[]
-    for i in range (cantidad):
-        nombre=input(f'Ingrese el titulo {i+1} para agregarlo a la Biblioteca: ').strip()
-        
-        while True:
-            if nombre.lower() in titulos_existentes:
-                nombre=input("====== ERROR ======\nEl libro ingresado ya existe. Intente con otro: ").strip()
-                continue
-
-            if nombre=='':
-                nombre=input("====== ERROR ======\nNo ha ingresado ningún título. Intente nuevamente: ").strip()
-                continue
-            break
-        nuevos_titulos.append(nombre)
-    return nuevos_titulos
-    
-def ingresar_titulos():
-    nuevos_titulos=validacion_libros()
-    nuevos_ejemplares=validacion_ejemplares()
-    cantidad=validacion_digitos()
     nuevos_libros=[]
-
     for i in range (cantidad):
-        nuevos_libros(i)=[{'titulo':nuevos_titulos[i], 'ejemplares':nuevos_ejemplares[i]}]
+        
+        nombre=validacion_titulos(titulos_existentes)
+        ejemplares=validacion_ejemplares()
+        nuevos_libros.append({'titulo':nombre, 'ejemplares':ejemplares})
+
+        titulos_existentes.append(nombre.lower())
 
     with open (nombre_archivo, 'a', newline='', encoding='utf-8') as archive:
         escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
-        escritor.writerow(nuevos_libros)
+        escritor.writerows(nuevos_libros)
     print('='*60,'\n El catalogo de libros se ha actualizado correctamente!')
     mostrar_catalogo()
-    print('-'*60)
-    pausa=input('Presione enter para continuar: ')
+    print('='*60)
+
+
+def ingresar_ejemplares():
+     catalogo=mostrar_catalogo()
+
 
 while opcion != "8":
     menu()
@@ -113,7 +115,6 @@ while opcion != "8":
     match opcion:
         case "1":
             ingresar_titulos()
-            continue
         case "2":
             #ingresar_ejemplares()
             continue
