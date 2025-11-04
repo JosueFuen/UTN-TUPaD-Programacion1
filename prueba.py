@@ -49,6 +49,23 @@ def validacion_digitos():
             continue
         return cantidad
 
+def validacion_ejemplares():
+    cantidad=validacion_digitos()
+    nuevos_titulos=validacion_libros()
+    nuevos_ejemplares=[]
+    for i in range (cantidad):
+        ejemplares=input(f'Ingrese la cantidad de ejemplares del libro {nuevos_titulos[i]: }').strip()
+        while True:
+            if not ejemplares.isdigit() or ejemplares =='':
+                ejemplares=input("====== ERROR ======\nDebe ingresa un digito. Intente nuevamente: ").strip()
+                continue
+            ejemplares=int(ejemplares)
+            if ejemplares<0:
+                ejemplares=input("====== ERROR ======\nDebe ingresar un digito mayor o igual a cero. Intente nuevamente: ").strip()
+                continue
+            break
+        nuevos_ejemplares.append(ejemplares)
+    return nuevos_ejemplares
 def validacion_libros():
     cantidad=validacion_digitos()
     libros=catalogo()
@@ -75,8 +92,21 @@ def validacion_libros():
     
 def ingresar_titulos():
     nuevos_titulos=validacion_libros()
+    nuevos_ejemplares=validacion_ejemplares()
+    cantidad=validacion_digitos()
+    nuevos_libros=[]
+
+    for i in range (cantidad):
+        nuevos_libros(i)=[{'titulo':nuevos_titulos[i], 'ejemplares':nuevos_ejemplares[i]}]
+
     with open (nombre_archivo, 'a', newline='', encoding='utf-8') as archive:
-        return 9
+        escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
+        escritor.writerow(nuevos_libros)
+    print('='*60,'\n El catalogo de libros se ha actualizado correctamente!')
+    mostrar_catalogo()
+    print('-'*60)
+    pausa=input('Presione enter para continuar: ')
+
 while opcion != "8":
     menu()
     opcion=input("Opción:").strip()
