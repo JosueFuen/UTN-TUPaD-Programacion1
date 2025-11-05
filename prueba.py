@@ -36,7 +36,7 @@ def mostrar_catalogo():
             print(f"{i}) - Título: {libro['titulo']} - Ejemplares: {libro['ejemplares']}")
         print("="*60)
         pausa=input("Presione enter para continuar:")
-def validacion_digitos():
+def validacion_digitos(num):
     print('='*60)
     cantidad=input("Indique la cantidad de titulos que desea ingresar a la biblioteca:").strip()
     while True:
@@ -44,44 +44,71 @@ def validacion_digitos():
             cantidad=input("====== ERROR ======\nDebe ingresa un digito. Intente nuevamente: ").strip()
             continue
         cantidad=int(cantidad)
-        if cantidad<1:
+        if cantidad<num:
             cantidad=input("====== ERROR ======\nDebe ingresar un digito mayor a cero. Intente nuevamente: ").strip()
             continue
         return cantidad
 
-def validacion_ejemplares():
+def validacion_ejemplares(num):
     ejemplares=input('Ingrese la cantidad de ejemplares que desea agregar: ').strip()
     while True:
         if not ejemplares.isdigit() or ejemplares =='':
             ejemplares=input("====== ERROR ======\nDebe ingresa un digito. Intente nuevamente: ").strip()
             continue
         ejemplares=int(ejemplares)
-        if ejemplares<0:
+        if ejemplares<num:
             ejemplares=input("====== ERROR ======\nDebe ingresar un digito mayor o igual a cero. Intente nuevamente: ").strip()
             continue
         break
     return ejemplares 
-def validacion_titulos(titulos_existentes):
 
+def validacion_titulos(titulos_existentes):
     nombre=input(f'Ingrese un titulo para agregarlo a la Biblioteca: ').strip()
     
     while True:
         if nombre.lower() in titulos_existentes:
             nombre=input("====== ERROR ======\nEl libro ingresado ya existe. Intente con otro: ").strip()
             continue
-        if nombre=='':
+        elif nombre=='':
             nombre=input("====== ERROR ======\nNo ha ingresado ningún título. Intente nuevamente: ").strip()
             continue
         break
     return nombre
+
 def buscar_titulo(titulos_existentes):
+    
     titulo=input('Ingrese el titulo deseado: ').strip()
     while True:
-        if titulo.lower() in titulos_existentes:
-    if titulo 
-    return
+        if titulo.lower() not in titulos_existentes:
+            titulo=input("====== ERROR ======\nEl titulo ingresado no existe. Intente nuevamente: ").strip()
+            continue
+        elif titulo=='':
+            titulo=input("====== ERROR ======\nNo ha ingresado ningún título. Intente nuevamente: ").strip()
+            continue
+        break
+    return titulo
+def consultar_disponibilidad():
+    libros=catalogo()
+    titulos_existentes=[]
+    for libro in libros:
+        titulos_existentes.append(libro['titulo'].lower())
+
+    titulo=buscar_titulo(titulos_existentes)
+    for libro in libros:
+        if libro['titulo'].lower()==titulo.lower():
+            print ('='*60)
+            print (f'Titulo:{libro['titulo']} - Ejemplares: {libro['ejemplares']}\n')
+            print('='*60,) 
+            pausa=input('Presione enter para continuar: ')
+
+
+def seleccionar_titulo():
+    cantidad=validacion_digitos(1)
+    libros=catalogo()
+    indice=input('Ingrese el índice del titulo que desea actualizar: ')
+
 def ingresar_titulos():
-    cantidad=validacion_digitos()
+    cantidad=validacion_digitos(0)
 
     libros=catalogo()
     titulos_existentes=[]
@@ -92,7 +119,7 @@ def ingresar_titulos():
     for i in range (cantidad):
         
         nombre=validacion_titulos(titulos_existentes)
-        ejemplares=validacion_ejemplares()
+        ejemplares=validacion_ejemplares(0)
         nuevos_libros.append({'titulo':nombre, 'ejemplares':ejemplares})
 
         titulos_existentes.append(nombre.lower())
@@ -106,8 +133,20 @@ def ingresar_titulos():
 
 
 def ingresar_ejemplares():
-     catalogo=mostrar_catalogo()
-
+    libros=catalogo()
+    titulos_existentes=[]
+    for libro in libros:
+        titulos_existentes.append(libro['titulo'].lower())
+    titulo=buscar_titulo(titulos_existentes)
+    ejemplares=validacion_ejemplares(1)
+    for libro in libros:
+        if libro['titulo'].lower()==titulo.lower():
+            libro['ejemplares']=libro['ejemplares']+int(ejemplares)
+    
+    with open (nombre_archivo, 'w', newline='', encoding='utf-8') as archive:
+        escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
+        escritor.writeheader()
+        escritor.writerows(libros)
 
 while opcion != "8":
     menu()
@@ -116,13 +155,11 @@ while opcion != "8":
         case "1":
             ingresar_titulos()
         case "2":
-            #ingresar_ejemplares()
-            continue
+            ingresar_ejemplares()
         case "3":
             mostrar_catalogo()
         case "4":
-            #consultar_disponibilidad()
-            continue
+            consultar_disponibilidad()
         case "5":
             #listar_agotados()
             continue
