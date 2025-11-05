@@ -36,6 +36,7 @@ def mostrar_catalogo():
             print(f"{i}) - Título: {libro['titulo']} - Ejemplares: {libro['ejemplares']}")
         print("="*60)
         pausa=input("Presione enter para continuar:")
+    
 def validacion_digitos(num):
     print('='*60)
     cantidad=input("Indique la cantidad de titulos que desea ingresar a la biblioteca:").strip()
@@ -158,8 +159,51 @@ def listar_agotados():
     pausa=input('Presione enter para continuar: ')
     
 def agregar_titulo():
+    libros=catalogo()
+    titulos_existentes=[]
+    for libro in libros:
+        titulos_existentes.append(libro['titulo'].lower())
     
     nombre=validacion_titulos(titulos_existentes)
+    ejemplares=validacion_ejemplares(1)
+    nuevos_libros=[]
+    nuevos_libros.append({'titulo':nombre, 'ejemplares':ejemplares})
+    with open (nombre_archivo, 'a', newline='', encoding='utf-8') as archive:
+        escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
+        escritor.writerows(nuevos_libros)
+    print('='*60,'\n El catalogo de libros se ha actualizado correctamente!')
+    mostrar_catalogo()
+    print('='*60)
+def actualizar_ejemplares():
+    libros=catalogo()
+    mostrar_catalogo()
+    titulos_existentes=[]
+    for libro in libros:
+        titulos_existentes.append(libro['titulo'].lower())
+    titulo=buscar_titulo(titulos_existentes)
+
+    option=input("Si desea pedir un prestamo ingrese 'P', si desea hacer una devolución ingrese 'D': ").strip().lower()
+
+    if option=='p':
+        for libro in libros:
+            if titulo== libro['titulo'].lower() and libro['ejemplares']>0:
+                libro['ejemplares']-=1
+            elif libro['ejemplares']==0:
+                print('No puede solicitar un prestamo de este libro, debido a que no hay disponibilidad.')
+                pausa=input('Presione enter para continuar: ')
+                break
+    elif option=='d':
+        for libro in libros:
+            if titulo==libro['titulo'].lower():
+                libro['ejemplares']+=1
+                pausa=input('Titulo ingresado correctamente. Presione enter para continuar: ')
+                break
+    else:
+        pausa=input('Ha ingresado una opción incorrecta. Presione enter para continuar: ')
+        
+        with open (nombre_archivo, 'w', newline='', encoding='utf-8') as archive:
+            escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
+            escritor.writerows(libros)
 
 while opcion != "8":
     menu()
@@ -178,8 +222,7 @@ while opcion != "8":
         case "6":
             agregar_titulo()
         case "7":
-            continue
-            #actualizar_ejemplares()
+            actualizar_ejemplares()
         case "8":
             print("Hasta luego!")
             break
