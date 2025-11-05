@@ -87,6 +87,7 @@ def buscar_titulo(titulos_existentes):
             continue
         break
     return titulo
+
 def consultar_disponibilidad():
     libros=catalogo()
     titulos_existentes=[]
@@ -100,12 +101,6 @@ def consultar_disponibilidad():
             print (f'Titulo:{libro['titulo']} - Ejemplares: {libro['ejemplares']}\n')
             print('='*60,) 
             pausa=input('Presione enter para continuar: ')
-
-
-def seleccionar_titulo():
-    cantidad=validacion_digitos(1)
-    libros=catalogo()
-    indice=input('Ingrese el índice del titulo que desea actualizar: ')
 
 def ingresar_titulos():
     cantidad=validacion_digitos(0)
@@ -131,7 +126,6 @@ def ingresar_titulos():
     mostrar_catalogo()
     print('='*60)
 
-
 def ingresar_ejemplares():
     libros=catalogo()
     titulos_existentes=[]
@@ -148,6 +142,25 @@ def ingresar_ejemplares():
         escritor.writeheader()
         escritor.writerows(libros)
 
+def listar_agotados():
+    libros=catalogo()
+    print('='*60,'\nLISTA DE AGOTADOS')
+    print('='*60)
+    agotados=[]
+    for libro in libros:
+        if libro['ejemplares']==0:
+            print(f'Título: {libro['titulo']} ')
+            agotados.append(libro)
+    if not agotados:
+        print('\nNO HAY LIBROS AGOTADOS')
+    
+    print('='*60)
+    pausa=input('Presione enter para continuar: ')
+    
+def agregar_titulo():
+    
+    nombre=validacion_titulos(titulos_existentes)
+
 while opcion != "8":
     menu()
     opcion=input("Opción:").strip()
@@ -161,11 +174,9 @@ while opcion != "8":
         case "4":
             consultar_disponibilidad()
         case "5":
-            #listar_agotados()
-            continue
+            listar_agotados()
         case "6":
-            #agregar_titulo()
-            continue
+            agregar_titulo()
         case "7":
             continue
             #actualizar_ejemplares()
