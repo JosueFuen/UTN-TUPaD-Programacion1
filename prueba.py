@@ -102,6 +102,7 @@ def consultar_disponibilidad():
             print (f'Titulo:{libro['titulo']} - Ejemplares: {libro['ejemplares']}\n')
             print('='*60,) 
             pausa=input('Presione enter para continuar: ')
+            break
 
 def ingresar_titulos():
     cantidad=validacion_digitos(0)
@@ -175,8 +176,8 @@ def agregar_titulo():
     mostrar_catalogo()
     print('='*60)
 def actualizar_ejemplares():
-    libros=catalogo()
     mostrar_catalogo()
+    libros=catalogo()
     titulos_existentes=[]
     for libro in libros:
         titulos_existentes.append(libro['titulo'].lower())
@@ -188,7 +189,13 @@ def actualizar_ejemplares():
         for libro in libros:
             if titulo== libro['titulo'].lower() and libro['ejemplares']>0:
                 libro['ejemplares']-=1
-            elif libro['ejemplares']==0:
+                with open (nombre_archivo, 'w', newline='', encoding='utf-8') as archive:
+                    escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
+                    escritor.writeheader()
+                    escritor.writerows(libros)
+                    mostrar_catalogo()
+                break
+            elif titulo== libro['titulo'].lower() and libro['ejemplares']==0:
                 print('No puede solicitar un prestamo de este libro, debido a que no hay disponibilidad.')
                 pausa=input('Presione enter para continuar: ')
                 break
@@ -197,13 +204,14 @@ def actualizar_ejemplares():
             if titulo==libro['titulo'].lower():
                 libro['ejemplares']+=1
                 pausa=input('Titulo ingresado correctamente. Presione enter para continuar: ')
+                with open (nombre_archivo, 'w', newline='', encoding='utf-8') as archive:
+                    escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
+                    escritor.writeheader()
+                    escritor.writerows(libros)
+                    mostrar_catalogo()
                 break
     else:
-        pausa=input('Ha ingresado una opción incorrecta. Presione enter para continuar: ')
-        
-        with open (nombre_archivo, 'w', newline='', encoding='utf-8') as archive:
-            escritor=csv.DictWriter(archive, fieldnames=['titulo', 'ejemplares'])
-            escritor.writerows(libros)
+        pausa=input('Ha ingresado una opción incorrecta. Presione enter para continuar: ')        
 
 while opcion != "8":
     menu()
