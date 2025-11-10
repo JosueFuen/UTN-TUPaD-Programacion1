@@ -1,3 +1,0 @@
-nombre,precio,cantidad
-Lapicera,150.5,30
-Goma,200,50
