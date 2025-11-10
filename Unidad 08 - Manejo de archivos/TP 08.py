@@ -3,7 +3,8 @@
 def crear_archivo(selector):
     if selector=='w' or selector=='a':
         with open ('productos.txt', f'{selector}') as archivo:
-            archivo.write('nombre,precio,cantidad\n')
+            if selector=='w':
+                archivo.write('nombre,precio,cantidad\n')
             archivo.write('Lapicera,150.5,30\n')
             archivo.write('Cuaderno,320.0,20\n')
             archivo.write('Borrador,90,50\n')
