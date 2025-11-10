@@ -28,9 +28,9 @@ def lista_productos():
 #los productos, le pida al usuario que ingrese un nuevo producto (nombre, precio, 
 #cantidad) y lo agregue al archivo sin borrar el contenido existente.
 def agregar_productos():    
-    nombre=input('Ingrese el nombre del producto que desea agregar: ')
-    precio=input('Ingrese el precio del producto: ')
-    cantidad=input('Ingrese la cantidad del producto: ')
+    nombre=input('Ingrese el nombre del producto que desea agregar: ').strip()
+    precio=input('Ingrese el precio del producto: ').strip()
+    cantidad=input('Ingrese la cantidad del producto: ').strip()
     with open ('productos.txt', 'a') as archivo:
         archivo.write(f'{nombre},{precio},{cantidad}\n')
     return
