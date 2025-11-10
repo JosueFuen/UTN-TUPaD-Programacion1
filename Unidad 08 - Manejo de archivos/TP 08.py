@@ -1,8 +1,14 @@
 #1. Crear archivo inicial con productos: Crear un archivo de texto llamado 
 #productos.txt con tres productos. Cada línea debe tener:  nombre,precio,cantidad 
-with open ('productos.txt', 'w') as archivo:
-    archivo.write('nombre,precio,cantidad\n')
-    archivo.write('Lapicera,150.5,30\n')
+def crear_archivo(selector):
+    if selector=='w' or selector=='a':
+        with open ('productos.txt', f'{selector}') as archivo:
+            archivo.write('nombre,precio,cantidad\n')
+            archivo.write('Lapicera,150.5,30\n')
+            archivo.write('Cuaderno,320.0,20\n')
+            archivo.write('Borrador,90,50\n')
+    else:
+        print('Opcion invalida.')
 
 #2. Leer y mostrar productos: Crear un programa que abra productos.txt, lea cada 
 #línea, la procese con .strip() y .split(","), y muestre los productos en el siguiente 
@@ -54,9 +60,9 @@ def buscar_producto():
                 continue
             if nombre==producto[0].lower():
                 encontrado=True
-        if encontrado==True:
-            print(f'Producto: {producto[0]} | Precio: ${producto[1]} | Cantidad: {producto[2]}')
-        else:
+                print(f'Producto: {producto[0]} | Precio: ${producto[1]} | Cantidad: {producto[2]}')
+                break
+        if encontrado==False:
             print('Error. El producto no existe.')
     return
 
@@ -65,9 +71,10 @@ def menu():
     print('2) Agregar productos')    
     print('3) Listar productos como diccionario')
     print('4) Buscar productos')
-    print('5) Salir')
+    print('5) Abrir o crear archivo')
+    print('6) Salir')
 opcion=''
-while opcion != '5':
+while opcion != '6':
     menu()
     opcion=input('Ingrese una opcion: ')
     match opcion:
@@ -80,6 +87,9 @@ while opcion != '5':
         case '4':
             buscar_producto()
         case '5':
+            selector=input('Ingrese la opción w, para sobreescribir el archivo desde cero, o la opcion a, para continuar trabajando sobre el archivo: ').lower().strip()
+            crear_archivo(selector)
+        case '6':
             break
         case _:
             print('Opción invalida. Intente nuevamente.')
